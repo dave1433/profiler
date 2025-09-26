@@ -1,37 +1,34 @@
+using efscaffold.Entities;
+using Infrastructure.Postgre.Scaffolding;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddDbContext<ProfilerDbContext>(conf =>
+{
+    conf.UseNpgsql();
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.MapGet("/", ([FromServices] ProfilerDbContext dbContext) =>
 {
-    app.MapOpenApi();
-}
+    var myProfile = new Profiler()
+    {
+        Firstname = "John",
+        Lastname = "Doe",
+        Age = 30,
+        City = "New York",
+        Occupation = "Software Developer",
+        Photourl = "https://example.com/photo.jpg"
+    };
+    dbContext.Profilers.Add(myProfile);
+    dbContext.SaveChanges();
+   var objects= dbContext.Profilers.ToList();
+   return objects;
+});
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
 
 app.Run();
 
