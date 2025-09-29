@@ -1,0 +1,21 @@
+# fly.toml app configuration file generated for my-profilerx-client on 2025-09-29T20:03:24+02:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'my-profilerx-client'
+primary_region = 'arn'
+
+[build]
+  dockerfile = './Dockerfile'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  size = 'shared-cpu-1x'
