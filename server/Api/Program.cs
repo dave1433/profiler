@@ -1,26 +1,32 @@
 using System.Text.Json;
 using api;
 using Api;
-using efscaffold.Entities;
+using Api.Services;
 using Infrastructure.Postgre.Scaffolding;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 var appOptions = builder.Services.AddAppOptions(builder.Configuration);
 
 Console.WriteLine(JsonSerializer.Serialize(appOptions));
-
+builder.Services.AddScoped<IProfilerService, ProfilerService>();
 builder.Services.AddDbContext<ProfilerDbContext>(conf =>
 {
     conf.UseNpgsql(appOptions.DbConnectionString);
 });
 
+builder.Services.AddControllers();
+builder.Services.AddOpenApiDocument();
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
 builder.Services.AddCors();
 
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 app.UseCors(config => config
     .AllowAnyHeader()
@@ -28,24 +34,9 @@ app.UseCors(config => config
     .AllowAnyOrigin()
     .SetIsOriginAllowed(x => true));
 
-app.MapGet("/", (
-    [FromServices]IOptionsMonitor<AppOptions>optionsMonitor,
-    [FromServices] ProfilerDbContext dbContext) =>
-{
-    var myProfile = new Profiler()
-    {
-        Firstname = "John",
-        Lastname = "Doe",
-        Age = 30,
-        City = "New York",
-        Occupation = "Software Developer",
-        Photourl = "https://example.com/photo.jpg"
-    };
-    dbContext.Profilers.Add(myProfile);
-    dbContext.SaveChanges();
-   var objects= dbContext.Profilers.ToList();
-   return objects;
-});
+app.MapControllers();
 
+app.UseOpenApi();
+app.UseSwaggerUi();
 
 app.Run();
