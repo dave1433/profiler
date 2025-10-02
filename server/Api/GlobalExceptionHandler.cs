@@ -15,7 +15,7 @@ public class GlobalExceptionHandler : IExceptionHandler
             Title = exception.Message,
         };
         
-        httpContext.Response.WriteAsJsonAsync(problemDetails);
+       await httpContext.Response.WriteAsJsonAsync(problemDetails);
         
         return true;
     }

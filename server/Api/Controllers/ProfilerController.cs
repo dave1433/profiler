@@ -1,4 +1,5 @@
-﻿using Api.Services;
+﻿using Api.Dtos;
+using Api.Services;
 using efscaffold.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,5 +24,20 @@ public class ProfilerController(IProfilerService profilerService) : ControllerBa
        var result = await profilerService.CreateProfile(dto);
        return result;
         
+    }
+    [Route(nameof(UpdateProfile))]
+    [HttpPut]
+    public async Task<ActionResult<Profiler>> UpdateProfile([FromBody] UpdateProfileDto dto)
+    {
+        var result = await profilerService.UpdateProfile(dto);
+        
+        return result;
+    }
+    [Route(nameof(DeleteProfile))]
+    [HttpDelete]
+    public Task<ActionResult<Profiler>> DeleteProfile([FromBody] DeleteProfileDto dto)
+    {
+        var result = profilerService.DeleteProfile(dto);
+        return result;
     }
 }

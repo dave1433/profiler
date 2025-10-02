@@ -1,42 +1,64 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+﻿.app-container {
+    font-family: sans-serif;
+    padding: 32px;
+    background: #f5f6fa;
+    min-height: 100vh;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.header {
+    margin-bottom: 32px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.title {
+    color: #273c75;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.subtitle {
+    color: #353b48;
+    font-size: 18px;
+    margin-top: 8px;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form-container {
+    margin-bottom: 24px;
+    background: #fff;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #dcdde1;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+input-bg {
+    background: #f0f3f6;
+    border: 1px solid #dcdde1;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    width: 100%;
+    box-sizing: border-box;
 }
-
-.card {
-  padding: 2em;
+.create-btn {
+    margin: 8px;
+    background: #44bd32;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
 }
-
-.read-the-docs {
-  color: #888;
+.profile-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.profile-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #dcdde1;
+    padding: 16px;
+    width: 220px;
+}
+.profile-img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+.profile-name {
+    margin: 8px 0;
 }

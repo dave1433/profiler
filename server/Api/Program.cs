@@ -1,6 +1,6 @@
 using System.Text.Json;
-using api;
 using Api;
+using Api.Etc;
 using Api.Services;
 using Infrastructure.Postgre.Scaffolding;
 using Microsoft.EntityFrameworkCore;
@@ -38,5 +38,6 @@ app.MapControllers();
 
 app.UseOpenApi();
 app.UseSwaggerUi();
+await app.GenerateApiClientsFromOpenApi("/../../client/src/generated-ts-client.ts");
 
 app.Run();

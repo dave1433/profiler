@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Api;
 
-namespace api;
+namespace Api;
 
 public static class AppOptionsExtensions
 {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Api.Controllers;
+namespace Api.Dtos;
 
 public record CreateProfileDto(
-    [Range(0,150)]int age, string firstname, string lastname, string occupation, string city, string photoUrl);
+    [Range(0,150)]int Age, string Firstname, string Lastname, string Occupation, string City, string PhotoUrl);
