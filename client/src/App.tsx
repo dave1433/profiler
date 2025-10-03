@@ -25,10 +25,10 @@ function App() {
                 <p className="subtitle">Discover and connect with people in your city</p>
             </div>
             <div className="form-container">
-                <h2>Add a New Profile</h2>
+                <h2 className="h2">Add a New Profile</h2>
                 <input
                     className="input-bg"
-                    value={myForm.photoUrl}
+                    value={myForm.photoUrl ?? ""}
                     onChange={e => setMyForm({ ...myForm, photoUrl: e.target.value })}
                     placeholder="Photo url!"
                 />
@@ -72,11 +72,13 @@ function App() {
                 </button>
             </div>
             <hr />
-            <h2>Profiles</h2>
+            <h2 className="h2">Profiles</h2>
             <div className="profile-list">
                 {profiles.map(p => (
                     <div key={p.id} className="profile-card">
-                        <img src={p.photoUrl} alt="Profile" className="profile-img" />
+                        {p.photourl
+                            ? <img src={p.photourl} alt="Profile" className="profile-img" />
+                            : null}
                         <h3 className="profile-name">{p.firstname} {p.lastname}</h3>
                         <p>Age: {p.age}</p>
                         <p>Occupation: {p.occupation}</p>
@@ -87,7 +89,5 @@ function App() {
         </div>
     )
 }
-
-
 
 export default App

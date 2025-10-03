@@ -15,7 +15,14 @@
     font-size: 18px;
     margin-top: 8px;
 }
+.h2{
+    color: #273c75;
+}
 .form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 24px;
     background: #fff;
     padding: 16px;
@@ -42,6 +49,8 @@ input-bg {
 }
 .profile-list {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     gap: 16px;
 }

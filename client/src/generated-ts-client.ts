@@ -17,7 +17,7 @@ export class ProfilerClient {
         this.baseUrl = baseUrl ?? "";
     }
 
-    getAllProfiles(): Promise<Profiler[]> {
+    getAllProfiles(): Promise<ProfileDto[]> {
         let url_ = this.baseUrl + "/GetAllProfiles";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -33,13 +33,13 @@ export class ProfilerClient {
         });
     }
 
-    protected processGetAllProfiles(response: Response): Promise<Profiler[]> {
+    protected processGetAllProfiles(response: Response): Promise<ProfileDto[]> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as Profiler[];
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as ProfileDto[];
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -47,10 +47,10 @@ export class ProfilerClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<Profiler[]>(null as any);
+        return Promise.resolve<ProfileDto[]>(null as any);
     }
 
-    createProfile(dto: CreateProfileDto): Promise<Profiler> {
+    createProfile(dto: CreateProfileDto): Promise<ProfileDto> {
         let url_ = this.baseUrl + "/CreateProfile";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -70,13 +70,13 @@ export class ProfilerClient {
         });
     }
 
-    protected processCreateProfile(response: Response): Promise<Profiler> {
+    protected processCreateProfile(response: Response): Promise<ProfileDto> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as Profiler;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as ProfileDto;
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -84,10 +84,10 @@ export class ProfilerClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<Profiler>(null as any);
+        return Promise.resolve<ProfileDto>(null as any);
     }
 
-    updateProfile(dto: UpdateProfileDto): Promise<Profiler> {
+    updateProfile(dto: UpdateProfileDto): Promise<ProfileDto> {
         let url_ = this.baseUrl + "/UpdateProfile";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -107,13 +107,13 @@ export class ProfilerClient {
         });
     }
 
-    protected processUpdateProfile(response: Response): Promise<Profiler> {
+    protected processUpdateProfile(response: Response): Promise<ProfileDto> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as Profiler;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as ProfileDto;
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -121,10 +121,10 @@ export class ProfilerClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<Profiler>(null as any);
+        return Promise.resolve<ProfileDto>(null as any);
     }
 
-    deleteProfile(dto: DeleteProfileDto): Promise<Profiler> {
+    deleteProfile(dto: DeleteProfileDto): Promise<ProfileDto> {
         let url_ = this.baseUrl + "/DeleteProfile";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -144,13 +144,13 @@ export class ProfilerClient {
         });
     }
 
-    protected processDeleteProfile(response: Response): Promise<Profiler> {
+    protected processDeleteProfile(response: Response): Promise<ProfileDto> {
         const status = response.status;
         let _headers: any = {}; if (response.headers && response.headers.forEach) { response.headers.forEach((v: any, k: any) => _headers[k] = v); };
         if (status === 200) {
             return response.text().then((_responseText) => {
             let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as Profiler;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as ProfileDto;
             return result200;
             });
         } else if (status !== 200 && status !== 204) {
@@ -158,20 +158,18 @@ export class ProfilerClient {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             });
         }
-        return Promise.resolve<Profiler>(null as any);
+        return Promise.resolve<ProfileDto>(null as any);
     }
 }
 
-export interface Profiler {
+export interface ProfileDto {
     id: number;
     firstname: string;
     lastname: string;
     age: number;
-    occupation: string;
     city: string;
-    photourl: string | undefined;
-    createdat: string | undefined;
-    updatedat: string | undefined;
+    occupation: string;
+    photoUrl: string;
 }
 
 export interface CreateProfileDto {
