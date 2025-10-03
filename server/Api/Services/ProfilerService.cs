@@ -3,12 +3,13 @@ using Api.Dtos;
 using efscaffold.Entities;
 using Infrastructure.Postgre.Scaffolding;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Services;
 
 public class ProfilerService(ProfilerDbContext dbContext) : IProfilerService
 {
-    public async Task<Profiler> CreateProfile(CreateProfileDto dto)
+    public async Task<ProfileDto> CreateProfile(CreateProfileDto dto)
     {
         var myProfile = new Profiler()
         {
@@ -22,15 +23,16 @@ public class ProfilerService(ProfilerDbContext dbContext) : IProfilerService
         dbContext.Profilers.Add(myProfile);
         dbContext.SaveChanges();
         var objects= dbContext.Profilers.ToList();
-        return myProfile;
+        return ProfileDto.FromEntity(myProfile);
     }
 
-    public async Task<List<Profiler>> GetAllProfiles()
+    public async Task<List<ProfileDto>> GetAllProfiles()
     {
-        return dbContext.Profilers.ToList(); //List<Profiler>
+        var profiles = await dbContext.Profilers.ToListAsync();
+        return profiles.Select(ProfileDto.FromEntity).ToList(); //List<Profiles>
     }
 
-    public async Task<ActionResult<Profiler>> UpdateProfile(UpdateProfileDto dto)
+    public async Task<ActionResult<ProfileDto>> UpdateProfile(UpdateProfileDto dto)
     {
        var profile = await dbContext.Profilers.FindAsync(dto.Id);
        if(profile == null)
@@ -46,7 +48,7 @@ public class ProfilerService(ProfilerDbContext dbContext) : IProfilerService
        return new OkObjectResult(profile);
     }
 
-    public async Task<ActionResult<Profiler>> DeleteProfile(DeleteProfileDto dto)
+    public async Task<ActionResult<ProfileDto>> DeleteProfile(DeleteProfileDto dto)
     {
         var profile = await dbContext.Profilers.FindAsync(dto.Id);
         if (profile == null)
@@ -54,6 +56,6 @@ public class ProfilerService(ProfilerDbContext dbContext) : IProfilerService
 
         dbContext.Profilers.Remove(profile);
         await dbContext.SaveChangesAsync();
-        return new OkObjectResult(profile);
+        return new OkObjectResult(ProfileDto.FromEntity(profile));
     }
 }

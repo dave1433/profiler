@@ -1,7 +1,7 @@
 ﻿using Api.Dtos;
 using Api.Services;
 using efscaffold.Entities;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc; 
 
 
 namespace Api.Controllers;
@@ -11,7 +11,7 @@ public class ProfilerController(IProfilerService profilerService) : ControllerBa
 {
     [Route(nameof(GetAllProfiles))]
     [HttpGet]
-    public async Task<ActionResult<List<Profiler>>> GetAllProfiles()
+    public async Task<ActionResult<List<ProfileDto>>> GetAllProfiles()
     {
         var profiles = await profilerService.GetAllProfiles();
         return profiles;
@@ -19,7 +19,7 @@ public class ProfilerController(IProfilerService profilerService) : ControllerBa
 
     [Route(nameof(CreateProfile))]
     [HttpPost]
-    public async Task<ActionResult<Profiler>> CreateProfile([FromBody] CreateProfileDto dto)
+    public async Task<ActionResult<ProfileDto>> CreateProfile([FromBody] CreateProfileDto dto)
     {
        var result = await profilerService.CreateProfile(dto);
        return result;
@@ -27,7 +27,7 @@ public class ProfilerController(IProfilerService profilerService) : ControllerBa
     }
     [Route(nameof(UpdateProfile))]
     [HttpPut]
-    public async Task<ActionResult<Profiler>> UpdateProfile([FromBody] UpdateProfileDto dto)
+    public async Task<ActionResult<ProfileDto>> UpdateProfile([FromBody] UpdateProfileDto dto)
     {
         var result = await profilerService.UpdateProfile(dto);
         
@@ -35,7 +35,7 @@ public class ProfilerController(IProfilerService profilerService) : ControllerBa
     }
     [Route(nameof(DeleteProfile))]
     [HttpDelete]
-    public Task<ActionResult<Profiler>> DeleteProfile([FromBody] DeleteProfileDto dto)
+    public Task<ActionResult<ProfileDto>> DeleteProfile([FromBody] DeleteProfileDto dto)
     {
         var result = profilerService.DeleteProfile(dto);
         return result;

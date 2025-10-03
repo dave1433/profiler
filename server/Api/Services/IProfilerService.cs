@@ -7,8 +7,8 @@ namespace Api.Services;
 
 public interface IProfilerService
 {
-    Task<Profiler> CreateProfile(CreateProfileDto dto);
-    Task<List<Profiler>> GetAllProfiles();
-    Task<ActionResult<Profiler>> UpdateProfile(UpdateProfileDto dto);
-    Task<ActionResult<Profiler>> DeleteProfile(DeleteProfileDto dto);
+    Task<ProfileDto> CreateProfile(CreateProfileDto dto);
+    Task<List<ProfileDto>> GetAllProfiles();
+    Task<ActionResult<ProfileDto>> UpdateProfile(UpdateProfileDto dto);
+    Task<ActionResult<ProfileDto>> DeleteProfile(DeleteProfileDto dto);
 }

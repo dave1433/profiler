@@ -20,7 +20,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Profiler"
+                    "$ref": "#/components/schemas/ProfileDto"
                   }
                 }
               }
@@ -53,7 +53,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Profiler"
+                  "$ref": "#/components/schemas/ProfileDto"
                 }
               }
             }
@@ -85,7 +85,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Profiler"
+                  "$ref": "#/components/schemas/ProfileDto"
                 }
               }
             }
@@ -117,7 +117,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Profiler"
+                  "$ref": "#/components/schemas/ProfileDto"
                 }
               }
             }
@@ -128,7 +128,7 @@
   },
   "components": {
     "schemas": {
-      "Profiler": {
+      "ProfileDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -146,25 +146,14 @@
             "type": "integer",
             "format": "int32"
           },
-          "occupation": {
-            "type": "string"
-          },
           "city": {
             "type": "string"
           },
-          "photourl": {
-            "type": "string",
-            "nullable": true
+          "occupation": {
+            "type": "string"
           },
-          "createdat": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "updatedat": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
+          "photoUrl": {
+            "type": "string"
           }
         }
       },
