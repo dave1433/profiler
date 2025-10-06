@@ -1,10 +1,16 @@
 ﻿import React from 'react';
-import type { CreateProfileDto } from '../generated-ts-client.ts';
+import type { CreateProfileDto } from './generated-ts-client.ts';
 
-export function ProfileForm({myForm, setMyForm, onSubmit, isEditing}: any){
-    
+interface ProfileFormProps {
+    myForm: CreateProfileDto;
+    setMyForm: (form: CreateProfileDto) => void;
+    onSubmit: (e: React.FormEvent) => void;
+    isEditing: boolean;
+}
+
+export function ProfileForm({ myForm, setMyForm, onSubmit, isEditing }: ProfileFormProps) {
     return (
-        <form className="form-container" onSubmit={handleSubmit}>
+        <form className="form-container" onSubmit={onSubmit}>
             <h2 className="h2">{isEditing ? "Edit Profile" : "Add a New Profile"}</h2>
             <input
                 className="input"
@@ -47,5 +53,5 @@ export function ProfileForm({myForm, setMyForm, onSubmit, isEditing}: any){
                 {isEditing ? "Save Changes" : "Add Profile"}
             </button>
         </form>
-    )
+    );
 }
