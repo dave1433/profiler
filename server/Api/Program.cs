@@ -1,43 +1,58 @@
 using System.Text.Json;
 using Api;
-using Api.Etc;
 using Api.Services;
 using Infrastructure.Postgre.Scaffolding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
-
-var builder = WebApplication.CreateBuilder(args);
-
-var appOptions = builder.Services.AddAppOptions(builder.Configuration);
-
-Console.WriteLine(JsonSerializer.Serialize(appOptions));
-builder.Services.AddScoped<IProfilerService, ProfilerService>();
-builder.Services.AddDbContext<ProfilerDbContext>(conf =>
+public class Program
 {
-    conf.UseNpgsql(appOptions.DbConnectionString);
-});
+    public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<AppOptions>(configuration.GetSection(nameof(AppOptions)));
+        services.AddScoped<IProfilerService, ProfilerService>();
+        services.AddDbContext<ProfilerDbContext>((provider, conf) =>
+        {
+            var appOptions = provider.GetRequiredService<IOptions<AppOptions>>().Value;
+            conf.UseNpgsql(appOptions.DbConnectionString);
+        });
+        
+        services.AddControllers();
+        services.AddOpenApiDocument(configure => configure.Title = "Profiler API");
+        services.AddProblemDetails();
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        services.AddCors();
 
-builder.Services.AddControllers();
-builder.Services.AddOpenApiDocument();
-builder.Services.AddProblemDetails();
-builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+    }
 
-builder.Services.AddCors();
 
-var app = builder.Build();
+    public static async Task Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
+        
+        ConfigureServices(builder.Services, builder.Configuration);
 
-app.UseExceptionHandler();
+        var appOptions = builder.Services.BuildServiceProvider()
+            .GetRequiredService<IOptions<AppOptions>>().Value;
+        Console.WriteLine(JsonSerializer.Serialize(appOptions));
 
-app.UseCors(config => config
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowAnyOrigin()
-    .SetIsOriginAllowed(x => true));
+        var app = builder.Build();
 
-app.MapControllers();
+        app.UseExceptionHandler();
 
-app.UseOpenApi();
-app.UseSwaggerUi();
-await app.GenerateApiClientsFromOpenApi("/../../client/src/generated-ts-client.ts");
+        app.UseCors(config => config
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()
+            .SetIsOriginAllowed(x => true));
 
-app.Run();
+        app.MapControllers();
+
+        app.UseOpenApi();
+        app.UseSwaggerUi();
+        await app.GenerateApiClientsFromOpenApi("/../../client/src/generated-ts-client.ts");
+
+        app.Run();
+    }
+}
+

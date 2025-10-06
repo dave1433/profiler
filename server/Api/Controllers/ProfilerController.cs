@@ -1,6 +1,5 @@
 ﻿using Api.Dtos;
 using Api.Services;
-using efscaffold.Entities;
 using Microsoft.AspNetCore.Mvc; 
 
 

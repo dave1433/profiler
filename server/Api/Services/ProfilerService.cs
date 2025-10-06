@@ -21,8 +21,7 @@ public class ProfilerService(ProfilerDbContext dbContext) : IProfilerService
             Photourl = dto.PhotoUrl
         };
         dbContext.Profilers.Add(myProfile);
-        dbContext.SaveChanges();
-        var objects= dbContext.Profilers.ToList();
+        await dbContext.SaveChangesAsync();
         return ProfileDto.FromEntity(myProfile);
     }
 
@@ -45,7 +44,7 @@ public class ProfilerService(ProfilerDbContext dbContext) : IProfilerService
        if (dto.Occupation != null)profile.Occupation = dto.Occupation;
        if (dto.PhotoUrl != null)profile.Photourl = dto.PhotoUrl;
        await dbContext.SaveChangesAsync();
-       return new OkObjectResult(profile);
+       return new OkObjectResult(ProfileDto.FromEntity(profile));
     }
 
     public async Task<ActionResult<ProfileDto>> DeleteProfile(DeleteProfileDto dto)

@@ -3,7 +3,7 @@ using NSwag;
 using NSwag.CodeGeneration.TypeScript;
 using NSwag.Generation;
 
-namespace Api.Etc;
+namespace Api;
 
 public static class GenerateApiClientsExtensions
 {
@@ -23,7 +23,7 @@ public static class GenerateApiClientsExtensions
         // Step 3: Parse the document back from JSON to ensure we're only using what's in the OpenAPI spec
         var documentFromJson = await OpenApiDocument.FromJsonAsync(openApiJson);
 
-        // Step 4: Generate TypeScript client from the parsed OpenAPI document
+        // Step 4: Generate the TypeScript client from the parsed OpenAPI document
         var settings = new TypeScriptClientGeneratorSettings
         {
             Template = TypeScriptTemplate.Fetch,
@@ -41,7 +41,7 @@ public static class GenerateApiClientsExtensions
             }
         };
 
-        // Step 5: Generate TypeScript client from the parsed OpenAPI document
+        // Step 5: Generate the TypeScript client from the parsed OpenAPI document
         var generator = new TypeScriptClientGenerator(documentFromJson, settings);
         var code = generator.GenerateFile();
 
