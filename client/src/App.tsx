@@ -13,7 +13,6 @@ function App() {
         showForm,
         setShowForm,
         isEditing,
-        setIsEditing,
         selectedProfile,
         setSelectedProfile,
         handleAddNew,

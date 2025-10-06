@@ -1,5 +1,4 @@
-﻿import React from 'react'
-import type { ProfileDto } from '../generated-ts-client.ts'
+﻿import type { ProfileDto } from '../generated-ts-client.ts'
 
 interface ProfileListProps {
     profiles: ProfileDto[];

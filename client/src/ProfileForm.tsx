@@ -4,7 +4,7 @@ import type { CreateProfileDto } from './generated-ts-client.ts';
 interface ProfileFormProps {
     myForm: CreateProfileDto;
     setMyForm: (form: CreateProfileDto) => void;
-    onSubmit: (e: React.FormEvent) => void;
+    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     isEditing: boolean;
 }
 
