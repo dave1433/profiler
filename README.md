@@ -9,7 +9,7 @@ A web application for managing user profiles.
 - React
 - Vite
 - C\#
-- SQL
+-PostgreSQL
 - Docker
 
 ## Installation
