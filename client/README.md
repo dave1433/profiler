@@ -9,7 +9,8 @@ A web application for managing user profiles.
 - React
 - Vite
 - C\#
-- SQL
+- PostgreSQL on PgNeon
+- Fly.io
 - Docker
 
 ## Installation
