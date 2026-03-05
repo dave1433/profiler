@@ -13,6 +13,7 @@ function App() {
         showForm,
         setShowForm,
         isEditing,
+        setIsEditing,
         selectedProfile,
         setSelectedProfile,
         handleAddNew,
@@ -28,7 +29,7 @@ function App() {
                 <p className="subtitle">Discover and connect with people in your city</p>
             </div>
             <button onClick={handleAddNew} className="add-btn">
-                {isEditing ? "Edit Profile" : "Add New Profile"}
+                Add New Profile
             </button>
             {showForm && (
                 <>
@@ -43,7 +44,7 @@ function App() {
                         onSubmit={handleSubmit}
                         isEditing={isEditing}
                     />
-                    <button onClick={() => { setShowForm(false); setSelectedProfile(null); }}>
+                    <button className="cancel-btn" onClick={() => { setShowForm(false); setSelectedProfile(null); setIsEditing(false) }}>
                         Cancel
                     </button>
                 </>

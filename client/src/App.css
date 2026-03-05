@@ -4,6 +4,11 @@
     background: #f5f6fa;
     min-height: 100vh;
 }
+.add-btn,
+.delete-btn,
+.cancel-btn {
+    margin-left: 12px;
+}
 .header {
     margin-bottom: 32px;
 }
